@@ -19,9 +19,8 @@ def resposta_bot(mensagens, documento):
     mensagens_modelo += mensagens
     template = ChatPromptTemplate.from_messages(mensagens_modelo)
     chain = template | chat
-    return chain.invoke({'informacoes:': documento}).content
+    return chain.invoke({'informacoes': documento}).content
 
-print('Bem-vindo ao JarvisBot')
 
 def carrega_site():
     url_site = input('Digite a url do site: ')
@@ -33,24 +32,24 @@ def carrega_site():
     return documento
 
 def carrega_pdf():
-    caminho = 'C:\Users\gusta\OneDrive\Documentos\GitHub\Desafio-Estagio\Chat-Bot\Roteiro de Viagem_ Nova York.pdf'
+    caminho = ''
     loader = PyPDFLoader(caminho)
     lista_documentos = loader.load()
+    documento = ''
     for doc in lista_documentos:
         documento += doc.page_content
-    documento = ''
     return documento
 
 def carrega_youtube():
     url_youtube = input('Digite a url do video: ')
     loader = YoutubeLoader.from_youtube_url(url_youtube, language=['pt'])
     lista_documentos = loader.load()
+    documento = ''
     for doc in lista_documentos:
         documento += doc.page_content
-    documento = ''
     return documento
 
-texto_selecao = '''Digite 1 se você quiser conversar com um site]
+texto_selecao = '''Digite 1 se você quiser conversar com um site
 Digite 2 se vocé quiser conversar com um pdf
 Digite 3 se você quiser vídeo de youtube
 '''
